@@ -1,6 +1,7 @@
 const path = require('path');
+const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
+const { InjectManifest } = require('workbox-webpack-plugin');
 const { merge } = require('webpack-merge');
-const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
@@ -23,10 +24,20 @@ module.exports = merge(common, {
         ],
     },
     plugins: [
-        new WorkboxWebpackPlugin.InjectManifest({
+        new InjectManifest({
             swSrc: path.resolve(__dirname, 'src/scripts/sw.js'),
             swDest: './sw.bundle.js',
             maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+        }),
+    ],
+    minimizer: [
+        new ImageMinimizerPlugin({
+            minimizer: {
+                implementation: ImageMinimizerPlugin.imageminMinify,
+                options: {
+                    plugins: [['mozpeg', { quality: 55, progressive: true }]],
+                },
+            },
         }),
     ],
 });

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { spyOn } from 'jest-mock';
 import FavoriteRestaurantSearchPresenter from '../src/scripts/views/pages/liked-restaurants/favorite-restaurant-search-presenter';
 import FavoriteRestaurantIdb from '../src/scripts/data/favorite-restaurant-idb';
@@ -35,7 +36,6 @@ describe('Searching restaurants', () => {
         setRestaurantSearchContainer();
         constructPresenter();
     });
-    
 
     it('should be able to capture the query typed by the user', () => {
         FavoriteRestaurantIdb.searchRestaurants.mockImplementation(() => []);
@@ -44,14 +44,12 @@ describe('Searching restaurants', () => {
         expect(presenter.latestQuery).toEqual('restaurant a');
     });
 
-
     it('should ask  the model to search for liked restaurants', () => {
         FavoriteRestaurantIdb.searchRestaurants.mockImplementation(() => []);
         searchRestaurants('restaurant a');
 
         expect(FavoriteRestaurantIdb.searchRestaurants).toHaveBeenCalledWith('restaurant a');
     });
-
 
     it('should show the found restaurants', () => {
         presenter._showFoundRestaurants([{ id: 1 }]);
@@ -70,7 +68,6 @@ describe('Searching restaurants', () => {
         ]);
         expect(document.querySelectorAll('.restaurant').length).toEqual(2);
     });
-
 
     it('should show the title of the found restaurants', () => {
         presenter._showFoundRestaurants([
@@ -99,11 +96,10 @@ describe('Searching restaurants', () => {
         expect(restaurantTitles.item(1).textContent).toEqual('Dua');
     });
 
-
     it('should show - for found restaurant without title', () => {
         presenter._showFoundRestaurants([{ id: 1 }]);
         expect(document.querySelectorAll('.restaurant__title').item(0).textContent).toEqual('-');
-    })
+    });
 
     it('should show the restaurants by Favorite Restaurants', (done) => {
         document
@@ -113,14 +109,14 @@ describe('Searching restaurants', () => {
 
                 done();
             });
-        
+
         // searchRestaurants('restaurant a');
         FavoriteRestaurantIdb.searchRestaurants.mockImplementation((query) => {
-            if(query === 'restaurant a') {
+            if (query === 'restaurant a') {
                 return [
-                    { id: 111, title: 'restaurant abc'},
+                    { id: 111, title: 'restaurant abc' },
                     { id: 222, title: 'ada juga restaurant abcde' },
-                    { id: 333, title: 'ini juga boleh restaurant a'},
+                    { id: 333, title: 'ini juga boleh restaurant a' },
                 ];
             }
             return [];
@@ -129,7 +125,6 @@ describe('Searching restaurants', () => {
 
         // expect(document.querySelectorAll('.restaurant').length).toEqual(3)
     });
-
 
     it('should show the name of the restaurants found by Favorite Restaurants', (done) => {
         document
@@ -141,9 +136,9 @@ describe('Searching restaurants', () => {
                 expect(restaurantTitles.item(2).textContent).toEqual('ini juga boleh restaurant a');
                 done();
             });
-        
+
         FavoriteRestaurantIdb.searchRestaurants.mockImplementation((query) => {
-            if(query === 'restaurant a') {
+            if (query === 'restaurant a') {
                 return [
                     { id: 111, title: 'restaurant abc' },
                     { id: 222, title: 'ada juga restaurant abcde' },
@@ -153,5 +148,5 @@ describe('Searching restaurants', () => {
             return [];
         });
         searchRestaurants('restaurant a');
-    })
+    });
 });
