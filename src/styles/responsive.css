@@ -27,6 +27,10 @@
     text-align: center;
     margin: 0;
   }
+
+  .hero {
+    background-image: url('/dist/images/hero-image_4-small.webp');
+  }
  
   .restaurants {
     grid-template-columns: 1fr 1fr;
@@ -51,22 +55,38 @@
   .app-bar .app-bar__brand h1 {
     font-size: 2em;
   }
+
+  .hero {
+    background-image: url('/dist/images/hero-image_4-medium-small.webp');
+  }
 }
  
 @media screen and (min-width: 850px) {
   .restaurants {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  .hero {
+    background-image: url('/dist/images/hero-image_4-medium.webp');
+  }
+
 }
  
 @media screen and (min-width: 1200px) {
   .restaurants {
     grid-template-columns: repeat(4, 1fr);
   }
+
+  .hero {
+    background-image: url('/dist/images/hero-image_4-medium-large.webp');
+  }
 }
  
 @media screen and (min-width: 1600px) {
   .restaurants {
       grid-template-columns: repeat(5, 1fr);
+  }
+  .hero {
+    background-image: url('/dist/images/hero-image_4-large.webp');
   }
 }

@@ -17,10 +17,11 @@ class FavoriteRestaurantSearchPresenter {
         this._latestQuery = latestQuery;
         // eslint-disable-next-line max-len
         const foundRestaurants = await this._favoriteRestaurants.searchRestaurants(this.latestQuery);
-        this._showFoundRestaurants(foundRestaurants)
+        this._showFoundRestaurants(foundRestaurants);
         // this._favoriteRestaurants.searchRestaurants(this.latestQuery);
     }
 
+    // eslint-disable-next-line class-methods-use-this
     _showFoundRestaurants(restaurants) {
         console.log(restaurants);
 

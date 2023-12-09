@@ -1,6 +1,7 @@
 const path = require('path');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const { InjectManifest } = require('workbox-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { merge } = require('webpack-merge');
 const common = require('./webpack.common');
 
@@ -24,9 +25,13 @@ module.exports = merge(common, {
         ],
     },
     plugins: [
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            openAnalyzer: false,
+        }),
         new InjectManifest({
-            swSrc: path.resolve(__dirname, 'src/scripts/sw.js'),
-            swDest: './sw.bundle.js',
+            swSrc: path.resolve(__dirname, 'src/scripts/service-worker.js'),
+            swDest: './serviceWorker.js',
             maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         }),
     ],
@@ -53,16 +58,16 @@ module.exports = merge(common, {
                 },
             },
         },
+        minimizer: [
+            new ImageMinimizerPlugin({
+                minimizer: {
+                    implementation: ImageMinimizerPlugin.imageminMinify,
+                    options: {
+                        plugins: [['mozjpeg', { quality: 15, progressive: true }]],
+                    },
+                },
+            }),
+        ],
     },
 
-    minimizer: [
-        new ImageMinimizerPlugin({
-            minimizer: {
-                implementation: ImageMinimizerPlugin.imageminMinify,
-                options: {
-                    plugins: [['mozpeg', { quality: 55, progressive: true }]],
-                },
-            },
-        }),
-    ],
 });
